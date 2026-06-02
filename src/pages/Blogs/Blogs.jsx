@@ -54,7 +54,7 @@ function Blogs() {
 
   return (
     <>
-      <Navbar />
+      
 
       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
         <div className="max-w-7xl mx-auto px-8">
@@ -151,7 +151,7 @@ function Blogs() {
         </div>
       </section>
 
-      <Footer />
+      
     </>
   );
 }

@@ -1,35 +1,3 @@
-// function Navbar() {
-//   return (
-//     <nav className="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
-
-//       <div className="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
-
-//         <h1 className="text-3xl font-bold text-[#0F172A]">
-//           LEGACY
-//         </h1>
-
-//         <ul className="hidden md:flex gap-8 text-[#0F172A] font-medium">
-
-//           <li>Home</li>
-//           <li>Services</li>
-//           <li>NRI</li>
-//           <li>Pricing</li>
-//           <li>Resources</li>
-//           <li>Contact</li>
-
-//         </ul>
-
-//         <button className="bg-[#C9A227] text-white px-6 py-3 rounded-xl">
-//           Book Consultation
-//         </button>
-
-//       </div>
-
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ConsultationModal from "../ConsultationModal/ConsultationModal";
@@ -37,26 +5,39 @@ import ConsultationModal from "../ConsultationModal/ConsultationModal";
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showServices, setShowServices] = useState(false);
+  const [showLearn, setShowLearn] = useState(false);
 
   return (
     <>
       <nav className="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
         <div className="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
 
-          <h1 className="text-3xl font-bold text-[#0F172A]">
-            LEGACY
-          </h1>
+          {/* Logo */}
+          <Link to="/">
+            <h1 className="text-3xl font-bold text-[#0F172A]">
+              LEGACY
+            </h1>
+          </Link>
 
-          <ul className="hidden md:flex gap-8 text-[#0F172A] font-medium">
-            <li>Home</li>
-            {/* <li>Services</li> */}
+          {/* Navigation Links */}
+          <ul className="hidden md:flex gap-8 text-[#0F172A] font-medium items-center">
+
+            <li className="cursor-pointer">
+              <Link to="/">Home</Link>
+            </li>
+
+            {/* Services Dropdown */}
             <li className="relative">
               <button
                 onClick={() => setShowServices(!showServices)}
                 className="flex items-center gap-1"
               >
                 Services
-                <span className={`transition-transform ${showServices ? "rotate-180" : ""}`}>
+                <span
+                  className={`transition-transform ${
+                    showServices ? "rotate-180" : ""
+                  }`}
+                >
                   ▼
                 </span>
               </button>
@@ -117,14 +98,85 @@ function Navbar() {
                 </div>
               )}
             </li>
-            <li>NRI</li>
-            <Link to="/aboutus">
-            <li>Pricing</li> 
-            </Link>
-            <li>Resources</li>
-            <li>Contact</li>
+
+            {/* NRI */}
+            <li className="cursor-pointer">
+              <Link to="/nri">NRI</Link>
+            </li>
+
+            {/* About Us */}
+            <li className="cursor-pointer">
+              <Link to="/aboutus">About Us</Link>
+            </li>
+
+            {/* Pricing */}
+            <li className="cursor-pointer">
+              <Link to="/pricing">Pricing</Link>
+            </li>
+
+            {/* Resources Dropdown */}
+            <li className="relative">
+              <button
+                onClick={() => setShowLearn(!showLearn)}
+                className="flex items-center gap-1"
+              >
+                Resources
+                <span
+                  className={`transition-transform ${
+                    showLearn ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
+              </button>
+
+              {showLearn && (
+                <div className="absolute top-full left-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 z-50">
+                  <ul className="text-sm text-[#0F172A]">
+
+                    <Link to="/blogs">
+                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
+                        Blogs
+                      </li>
+                    </Link>
+
+                    <Link to="/faqs">
+                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
+                        FAQs
+                      </li>
+                    </Link>
+
+                    <Link to="/videos">
+                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
+                        Videos
+                      </li>
+                    </Link>
+
+                    <Link to="/legal-guides">
+                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
+                        Legal Guides
+                      </li>
+                    </Link>
+
+                    <Link to="/resources">
+                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
+                        Downloadable Resources
+                      </li>
+                    </Link>
+
+                  </ul>
+                </div>
+              )}
+            </li>
+
+            {/* Contact */}
+            <li className="cursor-pointer">
+              <Link to="/contact">Contact</Link>
+            </li>
+
           </ul>
 
+          {/* Book Consultation Button */}
           <button
             onClick={() => setIsModalOpen(true)}
             className="bg-[#C9A227] text-white px-6 py-3 rounded-xl hover:bg-yellow-700 transition"

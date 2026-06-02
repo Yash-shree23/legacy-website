@@ -3,7 +3,7 @@
 function Contact() {
   return (
     <>
-      <Navbar />
+      
 
       {/* Hero Section */}
 
@@ -218,7 +218,7 @@ function Contact() {
 
       </section>
 
-      <Footer />
+   
     </>
   );
 }

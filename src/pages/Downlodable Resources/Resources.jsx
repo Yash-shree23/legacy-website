@@ -35,7 +35,7 @@ function Resources() {
 
   return (
     <>
-      <Navbar />
+      
 
       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
 
@@ -129,7 +129,7 @@ function Resources() {
 
       </section>
 
-      <Footer />
+     
     </>
   );
 }
