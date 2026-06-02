@@ -321,9 +321,12 @@ function Home() {
             a legal challenge for your family.
           </p>
 
-          <button className="bg-white text-[#0F172A] px-8 py-4 rounded-xl mt-8 font-semibold hover:scale-105 transition-all">
-            Explore NRI Services
-          </button>
+          <Link
+  to="/nri"
+  className="inline-block mt-8 bg-[#C9A227] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#b08d1d] transition-all"
+>
+  Explore NRI Services →
+</Link>
 
         </div>
 
