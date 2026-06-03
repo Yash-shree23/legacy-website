@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <section className="min-h-screen flex items-center bg-white">
@@ -28,7 +30,7 @@ function Hero() {
 
           </p>
 
-          <div className="flex gap-5 mt-10">
+          {/* <div className="flex gap-5 mt-10">
 
             <button className="bg-[#C9A227] hover:bg-yellow-700 text-white px-8 py-4 rounded-xl font-semibold">
 
@@ -42,7 +44,24 @@ function Hero() {
 
             </button>
 
-          </div>
+          </div> */}
+          <div className="flex gap-4 mt-8">
+
+  <Link
+    to="/services/will-drafting"
+    className="bg-[#C9A227] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#b08d1d] transition"
+  >
+    Start Your Will →
+  </Link>
+
+  <Link
+  to="/contact"
+  className="bg-[#C9A227] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#b08d1d] transition"
+>
+  Contact Us
+</Link>
+
+</div>
 
         </div>
 
