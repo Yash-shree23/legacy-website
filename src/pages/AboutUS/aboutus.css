@@ -1,0 +1,368 @@
+/* Google Fonts:
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+*/
+
+.about-container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 50px 30px;
+  background: #faf7f2;
+  font-family: "Inter", sans-serif;
+}
+
+/* PAGE TITLE */
+
+.about-title {
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: #14213d;
+  margin-bottom: 70px;
+  position: relative;
+}
+
+.about-title::after {
+  content: "";
+  width: 140px;
+  height: 4px;
+  display: block;
+  margin: 18px auto 0;
+  border-radius: 50px;
+  background: linear-gradient(
+    90deg,
+    #c8a45d,
+    #e5c07b
+  );
+}
+
+/* SECTIONS */
+
+.about-section {
+  background: #ffffff;
+  padding: 50px;
+  margin-bottom: 50px;
+  border-radius: 30px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.about-section:hover {
+  transform: translateY(-4px);
+}
+
+.about-section h2 {
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+  color: #14213d;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.about-section h2::after {
+  content: "";
+  width: 90px;
+  height: 4px;
+  display: block;
+  margin: 15px auto;
+  border-radius: 50px;
+  background: linear-gradient(
+    90deg,
+    #c8a45d,
+    #e5c07b
+  );
+}
+
+.about-section p {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  text-align: center;
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 2;
+  color: #4b5563;
+}
+
+/* PLATFORM STORY */
+
+.story-cards {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.story-card {
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #f8f5ef
+  );
+
+  border: 1px solid #ead8b1;
+
+  border-radius: 24px;
+
+  padding: 30px;
+
+  transition: all 0.4s ease;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.story-card:hover {
+  transform: translateY(-12px);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.story-card p {
+  text-align: left;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.story-card-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.story-card img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #c8a45d;
+}
+
+.story-card-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  color: #14213d;
+  margin: 0;
+}
+
+/* MISSION & VISION */
+
+.mission-vision-wrapper {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.vision-card,
+.mission-card {
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  transition: all 0.4s ease;
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.vision-card:hover,
+.mission-card:hover {
+  transform: translateY(-10px);
+}
+
+.vision-card {
+  background: linear-gradient(
+    135deg,
+    #14213d,
+    #1b263b
+  );
+
+  color: white;
+}
+
+.mission-card {
+  background: linear-gradient(
+    135deg,
+    #c8a45d,
+    #e5c07b
+  );
+
+  color: #14213d;
+}
+
+.vision-card h3,
+.mission-card h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.vision-card p,
+.mission-card p {
+  text-align: center;
+  margin: 0;
+  max-width: 100%;
+  line-height: 1.9;
+}
+
+.vision-card p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mission-card p {
+  color: #1f2937;
+}
+
+/* OPTIONAL HERO */
+
+.about-hero {
+  background: linear-gradient(
+    135deg,
+    #14213d,
+    #1b263b
+  );
+
+  color: white;
+
+  text-align: center;
+
+  padding: 100px 40px;
+
+  border-radius: 35px;
+
+  margin-bottom: 60px;
+}
+
+.about-hero h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+
+.about-hero p {
+  max-width: 800px;
+  margin: auto;
+  color: rgba(255,255,255,0.9);
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+.partners-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f8f9fa, #eef4ff);
+  overflow: hidden;
+}
+
+.partners-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.partners-title::after {
+  content: "";
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #f59e0b, #2563eb);
+  display: block;
+  margin: 15px auto;
+  border-radius: 10px;
+}
+
+.partners-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.partners-track {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: slideRight 30s linear infinite;
+}
+
+.partners-track img {
+  width: 180px;
+  height: 90px;
+  object-fit: contain;
+  background: #fff;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: 0.4s ease;
+}
+
+.partners-track img:hover {
+  transform: translateY(-10px) scale(1.08);
+  box-shadow: 0 12px 30px rgba(37,99,235,0.25);
+}
+
+/* Left to Right Animation */
+@keyframes slideRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .about-container {
+    padding: 30px 15px;
+  }
+
+  .about-title {
+    font-size: 3rem;
+  }
+
+  .about-section {
+    padding: 30px 20px;
+  }
+
+  .about-section h2 {
+    font-size: 2rem;
+  }
+
+  .about-hero h1 {
+    font-size: 3rem;
+  }
+
+  .story-card-details {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .story-card p {
+    text-align: center;
+  }
+  
+  .about-title {
+    font-size: 4rem;
+  }
+
+  .about-section h2 {
+    font-size: 2.4rem;
+  }
+
+   .partners-title {
+    font-size: 2.2rem;
+  }
+
+  .partners-track img {
+    width: 130px;
+    height: 70px;
+  }
+}
