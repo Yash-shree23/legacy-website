@@ -1,4 +1,4 @@
-
+import BackButton from "../../components/BackButton/BackButton";
 function Resources() {
   const resources = [
     {
@@ -35,7 +35,13 @@ function Resources() {
 
   return (
     <>
-      
+      {/* BACK BUTTON */}
+
+<section className="pt-28 pb-4 bg-white">
+  <div className="max-w-7xl mx-auto px-8">
+    <BackButton />
+  </div>
+</section>
 
       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
 

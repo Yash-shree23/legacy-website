@@ -587,7 +587,10 @@ function Home() {
 
       {/* Card 1 */}
 
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all">
+      <Link
+  to="/blogs"
+  className="block bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+>
 
         <img
           src={blog1}
@@ -607,12 +610,14 @@ function Home() {
 
         </div>
 
-      </div>
+      </Link>
 
       {/* Card 2 */}
 
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all">
-
+      <Link
+  to="/blogs"
+  className="block bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+>
         <img
           src={blog2}
           alt="Blog 2"
@@ -631,12 +636,14 @@ function Home() {
 
         </div>
 
-      </div>
+      </Link>
 
       {/* Card 3 */}
 
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all">
-
+      <Link
+  to="/blogs"
+  className="block bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+>
         <img
           src={blog3}
           alt="Blog 3"
@@ -655,7 +662,7 @@ function Home() {
 
         </div>
 
-      </div>
+      </Link>
 
     </div>
 

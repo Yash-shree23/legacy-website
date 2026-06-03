@@ -1,5 +1,6 @@
 import React from "react";
 import "./aboutus.css";
+import BackButton from "../../components/BackButton/BackButton";
 
 const teamMembers = [
   {
@@ -28,6 +29,13 @@ const teamMembers = [
 function AboutUS() {
   return (
     <div className="about-container">
+      {/* BACK BUTTON */}
+
+<section className="pt-28 pb-4 bg-white">
+  <div className="max-w-7xl mx-auto px-8">
+    <BackButton />
+  </div>
+</section>
 
       <section className="about-section">
         <h2>Why Estate Planning Matters</h2>

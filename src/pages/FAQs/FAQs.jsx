@@ -235,6 +235,7 @@
 // export default FAQs;
 import ConsultationModal from "../../components/ConsultationModal/ConsultationModal";
 import { useState } from "react";
+import BackButton from "../../components/BackButton/BackButton";
 
 function FAQs() {
 
@@ -327,7 +328,13 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       
+{/* BACK BUTTON */}
 
+<section className="pt-28 pb-4 bg-white">
+  <div className="max-w-7xl mx-auto px-8">
+    <BackButton />
+  </div>
+</section>
       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
         <div className="max-w-7xl mx-auto px-8">
 

@@ -1,5 +1,6 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import BackButton from "../../components/BackButton/BackButton";
 
 function LegalGuides() {
   const guides = [
@@ -36,7 +37,13 @@ function LegalGuides() {
   return (
     <>
       <Navbar />
+{/* BACK BUTTON */}
 
+<section className="pt-28 pb-4 bg-white">
+  <div className="max-w-7xl mx-auto px-8">
+    <BackButton />
+  </div>
+</section>
       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
         <div className="max-w-7xl mx-auto px-8">
 

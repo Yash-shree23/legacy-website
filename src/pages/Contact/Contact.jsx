@@ -1,9 +1,15 @@
-
+import BackButton from "../../components/BackButton/BackButton";
 
 function Contact() {
   return (
     <>
-      
+      {/* BACK BUTTON */}
+
+<section className="pt-28 pb-4 bg-white">
+  <div className="max-w-7xl mx-auto px-8">
+    <BackButton />
+  </div>
+</section>
 
       {/* Hero Section */}
 

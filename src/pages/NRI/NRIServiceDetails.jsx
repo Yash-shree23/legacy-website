@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { nriServices } from "../../data/nriServices";
+import BackButton from "../../components/BackButton/BackButton";
 
 function NRIServiceDetails() {
   const { slug } = useParams();
@@ -15,6 +16,13 @@ function NRIServiceDetails() {
   return (
     <>
       <Navbar />
+      {/* BACK BUTTON */}
+
+<section className="pt-28 pb-4 bg-white">
+  <div className="max-w-7xl mx-auto px-8">
+    <BackButton />
+  </div>
+</section>
 
       {/* HERO */}
 
