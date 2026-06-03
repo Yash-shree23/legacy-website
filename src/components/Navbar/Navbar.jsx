@@ -60,80 +60,83 @@ function Navbar() {
             </li>
 
             {/* Services Dropdown */}
-            <li 
-              className="relative"
-              onMouseEnter={() => setShowServices(true)}
-              onMouseLeave={() => setShowServices(false)}
-            >
-              <button
-                className="flex items-center gap-1"
-              >
-                Services
-                <span
-                  className={`transition-transform ${
-                    showServices ? "rotate-180" : ""
-                  }`}
-                >
-                  ▼
-                </span>
-              </button>
+            <li className="relative">
+  <button
+    onClick={() => {
+      setShowServices(!showServices);
+      setShowLearn(false);
+    }}
+    className="flex items-center gap-2"
+  >
+    Services
 
-              {showServices && (
-                <div className="absolute top-full left-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 z-50">
-                  <ul className="text-sm text-[#0F172A]">
+    <span
+      className={`transition-transform duration-300 ${
+        showServices ? "rotate-180" : ""
+      }`}
+    >
+      ▼
+    </span>
+  </button>
 
-                    <Link to="/services/will-drafting" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Will Drafting
-                      </li>
-                    </Link>
+  {showServices && (
+    <div className="absolute top-full left-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 z-50">
 
-                    <Link to="/services/estate-planning" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Estate Planning
-                      </li>
-                    </Link>
+      <ul className="text-sm text-[#0F172A]">
 
-                    <Link to="/services/gift-deed" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Gift Deed
-                      </li>
-                    </Link>
+        <Link to="/services/will-drafting">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Will Drafting
+          </li>
+        </Link>
 
-                    <Link to="/services/will-storage" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Will Storage
-                      </li>
-                    </Link>
+        <Link to="/services/estate-planning">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Estate Planning
+          </li>
+        </Link>
 
-                    <Link to="/services/executor-support" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Executor Support
-                      </li>
-                    </Link>
+        <Link to="/services/gift-deed">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Gift Deed
+          </li>
+        </Link>
 
-                    <Link to="/services/annual-review" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Annual Review
-                      </li>
-                    </Link>
+        <Link to="/services/will-storage">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Will Storage
+          </li>
+        </Link>
 
-                    <Link to="/services/post-death-support" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Post Death Support
-                      </li>
-                    </Link>
+        <Link to="/services/executor-support">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Executor Support
+          </li>
+        </Link>
 
-                    <Link to="/services/nri-services" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        NRI Services
-                      </li>
-                    </Link>
+        <Link to="/services/annual-review">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Annual Review
+          </li>
+        </Link>
 
-                  </ul>
-                </div>
-              )}
-            </li>
+        <Link to="/services/post-death-support">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Post Death Support
+          </li>
+        </Link>
+
+        <Link to="/services/nri-services">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            NRI Services
+          </li>
+        </Link>
+
+      </ul>
+
+    </div>
+  )}
+</li>
 
             {/* NRI */}
             <li className="cursor-pointer">
@@ -149,63 +152,66 @@ function Navbar() {
             
 
             {/* Resources Dropdown */}
-            <li 
-              className="relative"
-              onMouseEnter={() => setShowLearn(true)}
-              onMouseLeave={() => setShowLearn(false)}
-            >
-              <button
-                className="flex items-center gap-1"
-              >
-                Resources
-                <span
-                  className={`transition-transform ${
-                    showLearn ? "rotate-180" : ""
-                  }`}
-                >
-                  ▼
-                </span>
-              </button>
+            {/* Resources Dropdown */}
+<li className="relative">
+  <button
+    onClick={() => {
+      setShowLearn(!showLearn);
+      setShowServices(false);
+    }}
+    className="flex items-center gap-2"
+  >
+    Resources
 
-              {showLearn && (
-                <div className="absolute top-full left-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 z-50">
-                  <ul className="text-sm text-[#0F172A]">
+    <span
+      className={`transition-transform duration-300 ${
+        showLearn ? "rotate-180" : ""
+      }`}
+    >
+      ▼
+    </span>
+  </button>
 
-                    <Link to="/blogs" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Blogs
-                      </li>
-                    </Link>
+  {showLearn && (
+    <div className="absolute top-full left-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 z-50">
 
-                    <Link to="/faqs" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        FAQs
-                      </li>
-                    </Link>
+      <ul className="text-sm text-[#0F172A]">
 
-                    <Link to="/videos" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Videos
-                      </li>
-                    </Link>
+        <Link to="/blogs">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Blogs
+          </li>
+        </Link>
 
-                    <Link to="/legal-guides" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Legal Guides
-                      </li>
-                    </Link>
+        <Link to="/faqs">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            FAQs
+          </li>
+        </Link>
 
-                    <Link to="/resources" onClick={closeDropdowns}>
-                      <li className="px-5 py-3 hover:bg-gray-50 cursor-pointer">
-                        Downloadable Resources
-                      </li>
-                    </Link>
+        <Link to="/videos">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Videos
+          </li>
+        </Link>
 
-                  </ul>
-                </div>
-              )}
-            </li>
+        <Link to="/legal-guides">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Legal Guides
+          </li>
+        </Link>
 
+        <Link to="/resources">
+          <li className="px-5 py-3 hover:bg-gray-50">
+            Downloadable Resources
+          </li>
+        </Link>
+
+      </ul>
+
+    </div>
+  )}
+</li>
             {/* Contact */}
             <li className="cursor-pointer">
               <Link to="/contact" onClick={closeDropdowns}>Contact</Link>

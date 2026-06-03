@@ -38,7 +38,7 @@ function Hero() {
 
             <button className="border-2 border-[#0F172A] text-[#0F172A] px-8 py-4 rounded-xl font-semibold">
 
-              Talk To Lawyer
+              Contact Us
 
             </button>
 
