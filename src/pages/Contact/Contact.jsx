@@ -5,7 +5,7 @@ function Contact() {
     <>
       {/* BACK BUTTON */}
 
-<section className="pt-28 pb-4 bg-white">
+<section className="pt-24 pb-2 bg-white">
   <div className="max-w-7xl mx-auto px-8">
     <BackButton />
   </div>

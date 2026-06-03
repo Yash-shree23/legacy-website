@@ -14,7 +14,7 @@
 // //     <>
 // //       <Navbar />
 
-// //       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
+// //       <section className="pt-6 pb-20 bg-[#F8F7F2] min-h-screen">
 
 // //         <div className="max-w-5xl mx-auto px-8">
 
@@ -101,7 +101,7 @@
 //     <>
 //       <Navbar />
 
-//       <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
+//       <section className="pt-6 pb-20 bg-[#F8F7F2] min-h-screen">
 //         <div className="max-w-7xl mx-auto px-8">
 
 //           {/* Header */}
@@ -330,12 +330,12 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       
 {/* BACK BUTTON */}
 
-<section className="pt-28 pb-4 bg-white">
+<section className="pt-24 pb-2 bg-white">
   <div className="max-w-7xl mx-auto px-8">
     <BackButton />
   </div>
 </section>
-      <section className="pt-36 pb-20 bg-[#F8F7F2] min-h-screen">
+      <section className="pt-6 pb-20 bg-[#F8F7F2] min-h-screen">
         <div className="max-w-7xl mx-auto px-8">
 
           {/* Header */}
