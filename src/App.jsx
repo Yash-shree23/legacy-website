@@ -22,6 +22,8 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import ServiceDetails from "./pages/Services/ServiceDetails";
+import NRI from "./pages/NRI/NRI";
+import NRIServiceDetails from "./pages/NRI/NRIServiceDetails";
 import AboutUS from "./pages/AboutUS/AboutUS";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -34,7 +36,9 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/services/:slug" element={<ServiceDetails />} />
       <Route path="/aboutus" element={<AboutUS />}/>
-      </Routes>
+        <Route path="/nri" element={<NRI />} />
+      <Route path="/nri/:slug" element={<NRIServiceDetails />} />
+    </Routes>
       <Footer />
     </>
     
