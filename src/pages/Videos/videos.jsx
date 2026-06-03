@@ -243,7 +243,7 @@ function Videos() {
 
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

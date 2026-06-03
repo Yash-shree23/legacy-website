@@ -432,7 +432,7 @@ function NRIServiceDetails() {
 
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

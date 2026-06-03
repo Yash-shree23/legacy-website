@@ -87,7 +87,7 @@ function LegalGuides() {
         </div>
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

@@ -469,7 +469,7 @@ function NRI() {
 </section>
 
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

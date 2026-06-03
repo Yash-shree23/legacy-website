@@ -75,7 +75,7 @@ function Navbar() {
         showServices ? "rotate-180" : ""
       }`}
     >
-      ▼
+      ⌵
     </span>
   </button>
 
@@ -168,7 +168,7 @@ function Navbar() {
         showLearn ? "rotate-180" : ""
       }`}
     >
-      ▼
+      ⌵
     </span>
   </button>
 
