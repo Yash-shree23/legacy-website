@@ -175,7 +175,7 @@ function ServiceDetails() {
 
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
