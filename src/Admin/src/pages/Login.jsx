@@ -1,12 +1,23 @@
-import React, { useState } from "react";
 import "./Login.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent page refresh
+
+    // Add your login validation here if needed
+
+    navigate("/dashboard");
+  };
+
   return (
     <div className="login-page">
-
       <div className="login-left">
         <h1>LEGACY</h1>
 
@@ -19,13 +30,10 @@ function Login() {
       </div>
 
       <div className="login-right">
-
         <div className="login-card">
-
           <h2>Sign In</h2>
 
-          <form>
-
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>User ID</label>
 
@@ -40,20 +48,14 @@ function Login() {
 
               <div className="password-wrapper">
                 <input
-                  type={
-                    showPassword
-                      ? "text"
-                      : "password"
-                  }
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter Password"
                 />
 
                 <button
                   type="button"
                   className="show-btn"
-                  onClick={() =>
-                    setShowPassword(!showPassword)
-                  }
+                  onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
@@ -72,13 +74,9 @@ function Login() {
             >
               Login
             </button>
-
           </form>
-
         </div>
-
       </div>
-
     </div>
   );
 }
