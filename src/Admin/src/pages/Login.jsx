@@ -14,6 +14,7 @@ function Login() {
     // Add your login validation here if needed
 
     navigate("/dashboard");
+    // navigate("/admin/dashboard");  // ← must match the route above
   };
 
   return (
