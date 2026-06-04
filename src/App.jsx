@@ -20,6 +20,7 @@ import LoginPage from "./Admin/src/pages/Login";
 import Dashboard from "./Admin/src/pages/Dashboard";
 import Enquiries from "./Admin/src/pages/Enquiries";
 import Consultations from "./Admin/src/pages/Consultations";
+import Team from "./Admin/src/pages/Team";
 import Partners from "./Admin/src/pages/Partners";
 
 function App() {
@@ -45,17 +46,18 @@ function App() {
       </Route>
 
       {/* ADMIN ROUTES */}
-    
-        <Route path="/admin" element={<LoginPage />} />
-     
+
+      <Route path="/admin" element={<LoginPage />} />
+
 
       <Route element={<AdminLayout />}>
-  <Route path="/admin" element={<LoginPage />} />
-  <Route path="/dashboard" element={<Dashboard />} />
-   <Route path="/enquiries" element={<Enquiries />} />
-   <Route path="/consultations" element={<Consultations />} />
-    <Route path="/partners" element={<Partners />} />
-</Route>
+        <Route path="/admin" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/enquiries" element={<Enquiries />} />
+        <Route path="/consultations" element={<Consultations />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/partners" element={<Partners />} />
+      </Route>
     </Routes>
   );
 }
