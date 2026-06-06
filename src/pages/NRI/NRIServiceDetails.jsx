@@ -388,57 +388,6 @@ function NRIServiceDetails() {
 
 </section>
 
-      {/* CONTACT FORM */}
-
-      <section className="bg-[#F8F7F2] py-24">
-
-        <div className="max-w-6xl mx-auto px-8">
-
-          <div className="grid lg:grid-cols-2 gap-16">
-
-            <div>
-              <h2 className="text-5xl font-bold text-[#0F172A]">
-                Still Confused?
-              </h2>
-
-              <p className="mt-6 text-gray-600">
-                Speak with our experts today.
-              </p>
-            </div>
-
-            <form className="space-y-5">
-
-              <input
-                type="text"
-                placeholder="Name"
-                className="w-full border rounded-2xl p-4"
-              />
-
-              <input
-                type="text"
-                placeholder="Phone"
-                className="w-full border rounded-2xl p-4"
-              />
-
-              <textarea
-                rows="4"
-                placeholder="Requirement"
-                className="w-full border rounded-2xl p-4"
-              />
-
-              <button
-                className="w-full bg-[#0F172A] text-white py-4 rounded-2xl"
-              >
-                Send Enquiry
-              </button>
-
-            </form>
-
-          </div>
-
-        </div>
-
-      </section>
 
       {/* <Footer /> */}
     </>

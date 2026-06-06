@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function ConsultationModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -17,15 +18,32 @@ function ConsultationModal({ isOpen, onClose }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate API call — replace with your actual backend/email service
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1200);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+
+    await axios.post(
+      "http://localhost:8080/api/consultation",
+      formData
+    );
+
+    setSubmitted(true);
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Something went wrong.");
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 
   const handleClose = () => {
     setSubmitted(false);
