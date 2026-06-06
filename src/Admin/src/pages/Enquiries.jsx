@@ -1,5 +1,4 @@
 
-
 import { useState } from "react";
 import "../pages/Dashboard.css";
 import { AssignDropdown, teamMembers, statusClass } from "../pages/Dashboard";
@@ -15,6 +14,8 @@ const initialEnquiries = [
 
 function EnquiriesPage() {
   const [enquiries, setEnquiries] = useState(initialEnquiries);
+ // const [enquiries, setEnquiries] = useState([]);
+  
   const [toast, setToast]         = useState("");
 
   const flash = (msg) => { setToast(msg); setTimeout(() => setToast(""), 3000); };

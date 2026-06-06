@@ -51,13 +51,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 const navItems = [
-  { to: "/dashboard",     icon: "⊞", label: "Dashboard"     },
-  { to: "/enquiries",     icon: "✉", label: "All Enquiries"  },
-  { to: "/consultations", icon: "📋", label: "Consultations" },
-  { to: "/team",          icon: "👥", label: "Team"          },
-  { to: "/partners",      icon: "🤝", label: "Partners"      },
+  { to: "/admin/dashboard",     icon: "⊞", label: "Dashboard" },
+  { to: "/admin/enquiries",     icon: "✉", label: "All Enquiries" },
+  { to: "/admin/consultations", icon: "📋", label: "Consultations" },
+  { to: "/admin/team",          icon: "👥", label: "Team" },
+  { to: "/admin/partners",      icon: "🤝", label: "Partners" },
 ];
-
 function Sidebar() {
   const navigate = useNavigate();
 
