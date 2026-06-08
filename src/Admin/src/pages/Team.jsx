@@ -1,36 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./team.css";
 
+const API = "http://localhost:8080/api/team";
+
 const Team = () => {
-    const [members, setMembers] = useState([
-        {
-            id: 1,
-            name: "Ajay Shingade",
-            role: "Full Stack Developer",
-            phone: "+91 9876543210",
-            email: "ajay@gmail.com",
-            description: "Experienced Java, Spring Boot and React Developer.",
-            image: "https://i.pravatar.cc/300?img=11",
-        },
-        {
-            id: 2,
-            name: "Rahul Patil",
-            role: "UI/UX Designer",
-            phone: "+91 8765432109",
-            email: "rahul@gmail.com",
-            description: "Creative designer specializing in web interfaces.",
-            image: "https://i.pravatar.cc/300?img=12",
-        },
-        {
-            id: 3,
-            name: "Sneha Kulkarni",
-            role: "Legal Consultant",
-            phone: "+91 9988776655",
-            email: "sneha@gmail.com",
-            description: "Helping clients with legal documentation.",
-            image: "https://i.pravatar.cc/300?img=5",
-        },
-    ]);
+    const [members, setMembers] = useState([]);
 
     const [search, setSearch] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -44,6 +18,25 @@ const Team = () => {
         description: "",
         image: "",
     });
+
+    // ── Fetch all members from database ──
+   const fetchMembers = async () => {
+    try {
+        const res  = await fetch(API);
+        const data = await res.json();
+
+        // Make sure data is always an array
+        setMembers(Array.isArray(data) ? data : []);
+    } catch (err) {
+        console.error("Fetch error:", err);
+        setMembers([]);
+    }
+};
+
+    // Load members when page opens
+    useEffect(() => {
+        fetchMembers();
+    }, []);
 
     const handleChange = (e) => {
         setFormData({
@@ -86,33 +79,48 @@ const Team = () => {
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // ── Add or Update member in database ──
+   const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (editId) {
-            setMembers(
-                members.map((member) =>
-                    member.id === editId
-                        ? { ...formData, id: editId }
-                        : member
-                )
-            );
-        } else {
-            setMembers([
-                ...members,
-                {
-                    ...formData,
-                    id: Date.now(),
-                },
-            ]);
-        }
+    try {
+        const response = await fetch(API, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
 
-        setShowModal(false);
-    };
+        console.log("Status:", response.status);
 
+        const result = await response.text();
+        console.log("Response:", result);
+
+    } catch (err) {
+        console.error(err);
+    }
+};
     const filteredMembers = members.filter((member) =>
         member.name.toLowerCase().includes(search.toLowerCase())
     );
+
+    // ── Delete member from database ──
+    const handleDelete = async (id) => {
+        if (!window.confirm("Delete this member?")) return;
+
+        try {
+            await fetch(`${API}/${id}`, {
+                method: "DELETE",
+            });
+
+            // Refresh list from database
+            fetchMembers();
+
+        } catch (error) {
+            console.error("Delete Error:", error);
+        }
+    };
 
     return (
         <div className="team-page">
@@ -130,8 +138,6 @@ const Team = () => {
                 </button>
             </div>
 
-            
-
             <div className="search-section">
                 <input
                     type="text"
@@ -146,7 +152,7 @@ const Team = () => {
                     <div className="member-card" key={member.id}>
                         <div className="card-top">
                             <img
-                                src={member.image}
+                                src={member.image || "https://i.pravatar.cc/300?img=1"}
                                 alt={member.name}
                             />
                         </div>
