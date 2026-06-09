@@ -92,13 +92,35 @@ const Team = () => {
             body: JSON.stringify(formData),
         });
 
-        console.log("Status:", response.status);
-
-        const result = await response.text();
+        const result = await response.json();
         console.log("Response:", result);
+
+        if (response.ok) {
+            // 1. SUCCESS POPUP
+            alert("✅ Team member successfully added");
+
+            // 2. CLOSE MODAL
+            setShowModal(false);
+
+            // 3. RESET FORM
+            setFormData({
+                name: "",
+                role: "",
+                phone: "",
+                email: "",
+                description: "",
+                image: "",
+            });
+
+            // 4. INSTANT REFRESH DATA (IMPORTANT)
+            fetchMembers();
+        } else {
+            alert("❌ Failed to add team member");
+        }
 
     } catch (err) {
         console.error(err);
+        alert("❌ Server error");
     }
 };
     const filteredMembers = members.filter((member) =>
