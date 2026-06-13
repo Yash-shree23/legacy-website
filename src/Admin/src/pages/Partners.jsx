@@ -635,7 +635,7 @@ function Partners() {
           <div className="form-row">
 
             <div className="form-group">
-              <label>Contact *</label>
+              <label>Contact person *</label>
               <input
                 value={form.contact}
                 onChange={(e) =>

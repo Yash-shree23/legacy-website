@@ -84,25 +84,28 @@ const Team = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch(API, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });
+        const response = await fetch(
+            editId ? `${API}/${editId}` : API,
+            {
+                method: editId ? "PUT" : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            }
+        );
 
         const result = await response.json();
-        console.log("Response:", result);
 
         if (response.ok) {
-            // 1. SUCCESS POPUP
-            alert("✅ Team member successfully added");
+            alert(
+                editId
+                    ? "✅ Team member updated successfully"
+                    : "✅ Team member added successfully"
+            );
 
-            // 2. CLOSE MODAL
             setShowModal(false);
 
-            // 3. RESET FORM
             setFormData({
                 name: "",
                 role: "",
@@ -112,12 +115,12 @@ const Team = () => {
                 image: "",
             });
 
-            // 4. INSTANT REFRESH DATA (IMPORTANT)
+            setEditId(null);
+
             fetchMembers();
         } else {
-            alert("❌ Failed to add team member");
+            alert("❌ Operation failed");
         }
-
     } catch (err) {
         console.error(err);
         alert("❌ Server error");
