@@ -1,77 +1,334 @@
-
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../pages/Dashboard.css";
-import { statusClass } from "../pages/Dashboard";
-
-
-const initialConsultations = [
-  { id: 1, name: "Priya Desai",  phone: "+91 95432 10987", feedback: "Very helpful session",          status: "Done"    },
-  { id: 2, name: "Vijay Joshi",  phone: "+91 84321 09876", feedback: "Awaiting document submission",  status: "Pending" },
-  { id: 3, name: "Neha Sharma",  phone: "+91 73210 98765", feedback: "Rescheduled for next week",     status: "Pending" },
-  { id: 4, name: "Kiran Mehta",  phone: "+91 62109 87654", feedback: "All formalities completed",     status: "Done"    },
-  { id: 5, name: "Arjun Patil",  phone: "+91 51098 76543", feedback: "Needs follow-up call",          status: "Pending" },
-  { id: 6, name: "Meera Joshi",  phone: "+91 40987 65432", feedback: "Documents submitted successfully", status: "Done" },
-];
+import {
+  AssignDropdown,
+  statusClass,
+} from "../pages/Dashboard";
 
 function ConsultationsPage() {
-  const [consultations, setConsultations] = useState(initialConsultations);
-  const [toast, setToast]                 = useState("");
+  const [consultations, setConsultations] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [toast, setToast] = useState("");
+  const [filter, setFilter] = useState("All");
 
-  const flash = (msg) => { setToast(msg); setTimeout(() => setToast(""), 3000); };
-
-  const markDone = (id) => {
-    setConsultations((prev) =>
-      prev.map((c) => c.id === id ? { ...c, status: "Done" } : c)
-    );
-    // TODO: fetch('your-php-api/update-consultation', { method:'POST', body: JSON.stringify({ id, status: 'Done' }) })
-    flash("Consultation marked as done!");
+  const flash = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(""), 3000);
   };
+
+  useEffect(() => {
+    fetchConsultations();
+    fetchTeamMembers();
+  }, []);
+
+  const fetchConsultations = async () => {
+    try {
+      const res = await fetch(
+        // "http://localhost:8080/api/consultations/all"
+        "https://hpclsparesportal.in/legacy-backend/public/api/consultations/all"
+
+      );
+
+      const data = await res.json();
+
+      setConsultations(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchTeamMembers = async () => {
+    try {
+      const res = await fetch(
+        "https://hpclsparesportal.in/legacy-backend/public/api/team"
+      );
+
+      const data = await res.json();
+
+      setTeamMembers(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleAssign = async (
+    uniqueId,
+    member
+  ) => {
+    try {
+      await fetch(
+        "https://hpclsparesportal.in/legacy-backend/public/api/enquiry/assign",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            enquiry_unique_id:
+              uniqueId,
+            enquiry_type:
+              uniqueId.startsWith(
+                "contact_"
+              )
+                ? "Contact"
+                : "Consultation",
+            team_member_id:
+              member.id,
+          }),
+        }
+      );
+
+      flash(
+        `Assigned to ${member.name}`
+      );
+
+      fetchConsultations();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const markDone = async (
+    uniqueId
+  ) => {
+    try {
+      await fetch(
+        "https://hpclsparesportal.in/legacy-backend/public/api/enquiry/status",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            enquiry_unique_id:
+              uniqueId,
+            status: "Done",
+          }),
+        }
+      );
+
+      flash(
+        "Marked as done"
+      );
+
+      fetchConsultations();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const filteredConsultations =
+    filter === "All"
+      ? consultations
+      : consultations.filter(
+          (c) =>
+            c.status === filter
+        );
 
   return (
     <div className="dashboard-content">
-      {toast && <div className="toast">{toast}</div>}
+
+      {toast && (
+        <div className="toast">
+          {toast}
+        </div>
+      )}
 
       <div className="table-card">
+
         <div className="table-header">
-          <h3>All Consultations</h3>
-          <span className="muted" style={{ fontSize: 13 }}>{consultations.length} total</span>
+
+          <h3>
+            Contact &
+            Consultation Requests
+          </h3>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              alignItems:
+                "center",
+            }}
+          >
+            <span className="muted">
+              {
+                filteredConsultations.length
+              }{" "}
+              total
+            </span>
+
+            <select
+              value={filter}
+              onChange={(e) =>
+                setFilter(
+                  e.target.value
+                )
+              }
+            >
+              <option value="All">
+                All
+              </option>
+              <option value="Pending">
+                Pending
+              </option>
+              <option value="Assigned">
+                Assigned
+              </option>
+              <option value="Done">
+                Done
+              </option>
+            </select>
+          </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Feedback</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {consultations.map((c) => (
-              <tr key={c.id}>
-                <td>
-                  <div className="name-cell">
-                    <div className="avatar-sm av-alt">{c.name.split(" ").map((n) => n[0]).join("")}</div>
-                    {c.name}
-                  </div>
-                </td>
-                <td className="muted">{c.phone}</td>
-                <td className="muted truncate">{c.feedback}</td>
-                <td><span className={`status-pill ${statusClass[c.status]}`}>{c.status}</span></td>
-                <td>
-                  {c.status === "Pending" && (
-                    <button className="btn-done" onClick={() => markDone(c.id)}>Mark Done</button>
-                  )}
-                  {c.status === "Done" && (
-                    <span className="done-label">✔ Done</span>
-                  )}
-                </td>
+
+        <div className="table-wrapper">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>
+                  Assigned To
+                </th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+
+              {filteredConsultations.map(
+                (c) => (
+                  <tr
+                    key={
+                      c.unique_id
+                    }
+                  >
+
+                    <td>
+                      <span
+                        className={`status-pill ${
+                          c.enquiry_type ===
+                          "Contact"
+                            ? "s-pend"
+                            : "s-assigned"
+                        }`}
+                      >
+                        {
+                          c.enquiry_type
+                        }
+                      </span>
+                    </td>
+
+                    <td>
+                      <div className="name-cell">
+                        <div className="avatar-sm av-alt">
+                          {c.name
+                            ?.split(
+                              " "
+                            )
+                            .map(
+                              (
+                                n
+                              ) =>
+                                n[0]
+                            )
+                            .join(
+                              ""
+                            )}
+                        </div>
+
+                        {c.name}
+                      </div>
+                    </td>
+
+                    <td className="muted">
+                      {c.phone}
+                    </td>
+
+                    <td className="muted truncate">
+                      {c.message}
+                    </td>
+
+                    <td>
+                      <span
+                        className={`status-pill ${
+                          statusClass[
+                            c.status
+                          ]
+                        }`}
+                      >
+                        {
+                          c.status
+                        }
+                      </span>
+                    </td>
+
+                    <td className="muted">
+                      {c.assignedTo ||
+                        "—"}
+                    </td>
+
+                    <td>
+
+                      {c.status ===
+                        "Pending" && (
+                        <AssignDropdown
+                          enquiryId={
+                            c.unique_id
+                          }
+                          onAssign={
+                            handleAssign
+                          }
+                          teamMembers={
+                            teamMembers
+                          }
+                        />
+                      )}
+
+                      {c.status ===
+                        "Assigned" && (
+                        <button
+                          className="btn-done"
+                          onClick={() =>
+                            markDone(
+                              c.unique_id
+                            )
+                          }
+                        >
+                          Mark
+                          Done
+                        </button>
+                      )}
+
+                      {c.status ===
+                        "Done" && (
+                        <span className="done-label">
+                          ✔ Done
+                        </span>
+                      )}
+
+                    </td>
+
+                  </tr>
+                )
+              )}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
       </div>
+
     </div>
   );
 }

@@ -23,7 +23,8 @@ function Contact() {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/contact",
+        // "http://localhost:8080/api/contact",
+         "https://hpclsparesportal.in/legacy-backend/public/api/contact",
         formData
       );
 

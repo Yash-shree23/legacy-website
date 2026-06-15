@@ -33,7 +33,8 @@ function ServiceDetails() {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/service-enquiry",
+        //  "http://localhost:8080/api/service-enquiry",
+        "https://hpclsparesportal.in/legacy-backend/public/api/service-enquiry",
         {
           ...formData,
           service_name: service.title,

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./team.css";
 
-const API = "http://localhost:8080/api/team";
+// const API = "http://localhost:8080/api/team";
+const API = "https://hpclsparesportal.in/legacy-backend/public/api/team";
 
 const Team = () => {
     const [members, setMembers] = useState([]);
@@ -67,39 +68,45 @@ const Team = () => {
     };
 
     const handleImageUpload = (e) => {
-        const file = e.target.files[0];
+  const file = e.target.files[0];
 
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-
-            setFormData({
-                ...formData,
-                image: imageUrl,
-            });
-        }
-    };
+  setFormData({
+    ...formData,
+    image: file,
+  });
+};
 
     // ── Add or Update member in database ──
    const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-        const response = await fetch(API, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });
+  const data = new FormData();
 
-        console.log("Status:", response.status);
+  data.append("name", formData.name);
+  data.append("role", formData.role);
+  data.append("phone", formData.phone);
+  data.append("email", formData.email);
+  data.append("description", formData.description);
+  data.append("image", formData.image);
 
-        const result = await response.text();
-        console.log("Response:", result);
+  try {
 
-    } catch (err) {
-        console.error(err);
-    }
+    const response = await fetch(API, {
+      method: "POST",
+      body: data,
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    setShowModal(false);
+
+    fetchMembers();
+
+  } catch (err) {
+    console.error(err);
+  }
 };
     const filteredMembers = members.filter((member) =>
         member.name.toLowerCase().includes(search.toLowerCase())
@@ -151,10 +158,14 @@ const Team = () => {
                 {filteredMembers.map((member) => (
                     <div className="member-card" key={member.id}>
                         <div className="card-top">
-                            <img
-                                src={member.image || "https://i.pravatar.cc/300?img=1"}
-                                alt={member.name}
-                            />
+<img
+  src={
+    member.image
+      ? `https://hpclsparesportal.in/legacy-backend/public/uploads/team/${member.image}`
+      : "https://i.pravatar.cc/300?img=1"
+  }
+  alt={member.name}
+/>
                         </div>
 
                         <div className="card-content">

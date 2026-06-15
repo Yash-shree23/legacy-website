@@ -1,89 +1,238 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../pages/Dashboard.css";
-import { AssignDropdown, teamMembers, statusClass } from "../pages/Dashboard";
+import { AssignDropdown, statusClass } from "../pages/Dashboard";
 
-const initialEnquiries = [
-  { id: 1, name: "Rahul Patil",    phone: "+91 98765 43210", message: "Need help with will drafting",    status: "Pending",  assignedTo: null                    },
-  { id: 2, name: "Sneha Kulkarni", phone: "+91 87654 32109", message: "Estate transfer query",           status: "Done",     assignedTo: { name: "Amit Sharma" } },
-  { id: 3, name: "Amit Mahajan",   phone: "+91 76543 21098", message: "Property succession advice",      status: "Assigned", assignedTo: { name: "Priya Nair" }  },
-  { id: 4, name: "Divya Rao",      phone: "+91 65432 10987", message: "Trust fund setup enquiry",        status: "Pending",  assignedTo: null                    },
-  { id: 5, name: "Rohan Mehta",    phone: "+91 55432 10987", message: "Will registration process",       status: "Pending",  assignedTo: null                    },
-  { id: 6, name: "Kavita Joshi",   phone: "+91 44321 09876", message: "NRI property transfer help",      status: "Assigned", assignedTo: { name: "Rohit Desai" } },
-];
 
 function EnquiriesPage() {
-  const [enquiries, setEnquiries] = useState(initialEnquiries);
- // const [enquiries, setEnquiries] = useState([]);
-  
-  const [toast, setToast]         = useState("");
+  const [enquiries, setEnquiries] = useState([]);
+  const [toast, setToast] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [teamMembers, setTeamMembers] = useState([]);
 
-  const flash = (msg) => { setToast(msg); setTimeout(() => setToast(""), 3000); };
-
-  const handleAssign = (id, member) => {
-    setEnquiries((prev) =>
-      prev.map((e) => e.id === id ? { ...e, status: "Assigned", assignedTo: member } : e)
-    );
-    // TODO: fetch('your-php-api/assign-enquiry', { method:'POST', body: JSON.stringify({ enquiryId: id, memberId: member.id }) })
-    flash(`Assigned to ${member.name} successfully!`);
+  const flash = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(""), 3000);
   };
 
-  const markDone = (id) => {
-    setEnquiries((prev) =>
-      prev.map((e) => e.id === id ? { ...e, status: "Done" } : e)
+  useEffect(() => {
+  fetchEnquiries();
+  fetchTeamMembers();
+}, []);
+const fetchEnquiries = async () => {
+  try {
+    const res = await fetch(
+      // "http://localhost:8080/api/dashboard/all-service-enquiries"
+      "https://hpclsparesportal.in/legacy-backend/public/api/dashboard/all-service-enquiries"
     );
-    // TODO: fetch('your-php-api/update-status', { method:'POST', body: JSON.stringify({ id, status: 'Done' }) })
-    flash("Enquiry marked as done!");
+
+    const data = await res.json();
+
+    setEnquiries(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+  const fetchTeamMembers = async () => {
+  try {
+    const res = await fetch(
+      // "http://localhost:8080/api/team"
+      "https://hpclsparesportal.in/legacy-backend/public/api/team"
+    );
+
+    const data = await res.json();
+
+    setTeamMembers(data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+  const handleAssign = async (uniqueId, member) => {
+    try {
+      await fetch(
+        // "http://localhost:8080/api/enquiry/assign",
+        "https://hpclsparesportal.in/legacy-backend/public/api/enquiry/assign",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            enquiry_unique_id: uniqueId,
+            enquiry_type: "Service",
+            team_member_id: member.id,
+          }),
+        }
+      );
+
+      flash(`Assigned to ${member.name}`);
+
+      fetchEnquiries();
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  const markDone = async (uniqueId) => {
+    try {
+      await fetch(
+        // "http://localhost:8080/api/enquiry/status",
+        "https://hpclsparesportal.in/legacy-backend/public/api/enquiry/status",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            enquiry_unique_id: uniqueId,
+            status: "Done",
+          }),
+        }
+      );
+
+      flash("Enquiry marked as done");
+
+      fetchEnquiries();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const filteredEnquiries =
+    filter === "All"
+      ? enquiries
+      : enquiries.filter(
+          (e) => e.status === filter
+        );
 
   return (
     <div className="dashboard-content">
-      {toast && <div className="toast">{toast}</div>}
+
+      {toast && (
+        <div className="toast">
+          {toast}
+        </div>
+      )}
 
       <div className="table-card">
+
         <div className="table-header">
-          <h3>All Enquiries</h3>
-          <span className="muted" style={{ fontSize: 13 }}>{enquiries.length} total</span>
+          <h3>All Service Enquiries</h3>
+
+          <div style={{
+            display: "flex",
+            gap: "10px",
+            alignItems: "center"
+          }}>
+            <span className="muted">
+              {filteredEnquiries.length} total
+            </span>
+
+            <select
+              value={filter}
+              onChange={(e) =>
+                setFilter(e.target.value)
+              }
+            >
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Assigned">Assigned</option>
+              <option value="Done">Done</option>
+            </select>
+          </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Message</th>
-              <th>Status</th>
-              <th>Assigned To</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {enquiries.map((e) => (
-              <tr key={e.id}>
-                <td>
-                  <div className="name-cell">
-                    <div className="avatar-sm">{e.name.split(" ").map((n) => n[0]).join("")}</div>
-                    {e.name}
-                  </div>
-                </td>
-                <td className="muted">{e.phone}</td>
-                <td className="muted truncate">{e.message}</td>
-                <td><span className={`status-pill ${statusClass[e.status]}`}>{e.status}</span></td>
-                <td className="muted">{e.assignedTo ? e.assignedTo.name : "—"}</td>
-                <td>
-                  {e.status === "Pending" && (
-                    <AssignDropdown enquiryId={e.id} onAssign={handleAssign} />
-                  )}
-                  {e.status === "Assigned" && (
-                    <button className="btn-done" onClick={() => markDone(e.id)}>Mark Done</button>
-                  )}
-                  {e.status === "Done" && (
-                    <span className="done-label">✔ Done</span>
-                  )}
-                </td>
+
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {filteredEnquiries.map((e) => (
+                <tr key={e.unique_id}>
+
+                  <td>
+                    {e.service_name}
+                  </td>
+
+                  <td>
+                    <div className="name-cell">
+                      <div className="avatar-sm">
+                        {e.name
+                          ?.split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </div>
+
+                      {e.name}
+                    </div>
+                  </td>
+
+                  <td className="muted">
+                    {e.phone}
+                  </td>
+
+                  <td className="muted truncate">
+                    {e.message}
+                  </td>
+
+                  <td>
+                    <span
+                      className={`status-pill ${
+                        statusClass[e.status]
+                      }`}
+                    >
+                      {e.status}
+                    </span>
+                  </td>
+
+                  <td className="muted">
+                    {e.assignedTo || "—"}
+                  </td>
+
+                  <td>
+
+                    {e.status === "Pending" && (
+                      <AssignDropdown
+  enquiryId={e.unique_id}
+  onAssign={handleAssign}
+  teamMembers={teamMembers}
+/>
+                    )}
+
+                    {e.status === "Assigned" && (
+                      <button
+                        className="btn-done"
+                        onClick={() =>
+                          markDone(e.unique_id)
+                        }
+                      >
+                        Mark Done
+                      </button>
+                    )}
+
+                    {e.status === "Done" && (
+                      <span className="done-label">
+                        ✔ Done
+                      </span>
+                    )}
+
+                  </td>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   );

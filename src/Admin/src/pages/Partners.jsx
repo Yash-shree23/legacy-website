@@ -308,7 +308,8 @@ function Partners() {
   const fetchPartners = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/partners"
+        // "http://localhost:8080/api/partners"
+        "https://hpclsparesportal.in/legacy-backend/public/api/partners"
       );
 
       const data = await response.json();
@@ -379,7 +380,8 @@ function Partners() {
       }
 
       const response = await fetch(
-        "http://localhost:8080/api/partners",
+        // "http://localhost:8080/api/partners",
+        "https://hpclsparesportal.in/legacy-backend/public/api/partners",
         {
           method: "POST",
           body: formData,
@@ -409,7 +411,8 @@ function Partners() {
 
     try {
       await fetch(
-        `http://localhost:8080/api/partners/${id}`,
+        // `http://localhost:8080/api/partners/${id}`,
+        `https://hpclsparesportal.in/legacy-backend/public/api/partners/${id}`,
         {
           method: "DELETE",
         }
@@ -615,7 +618,8 @@ function Partners() {
                       >
                         {p.logo ? (
                           <img
-                            src={`http://localhost:8080/uploads/partners/${p.logo}`}
+                            // src={`http://localhost:8080/uploads/partners/${p.logo}`}
+                            src={`https://hpclsparesportal.in/legacy-backend/public/uploads/partners/${p.logo}`}
                             alt={
                               p.company_name
                             }
