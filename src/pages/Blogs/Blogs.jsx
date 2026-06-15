@@ -111,17 +111,17 @@ function Blogs() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
 
             {filteredBlogs.map((blog, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
-              >
+             <div
+  key={index}
+  className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col"
+>
                 <img
                   src={blog.image}
                   alt={blog.title}
                   className="h-60 w-full object-cover"
                 />
 
-                <div className="p-6">
+           <div className="p-6 flex flex-col flex-1">
 
                   <span className="inline-block bg-[#C9A227]/10 text-[#C9A227] px-3 py-1 rounded-full text-sm">
                     {blog.category}
@@ -131,11 +131,11 @@ function Blogs() {
                     {blog.title}
                   </h3>
 
-                  <p className="text-gray-600 mt-3 text-sm">
-                    Learn more about estate planning,
-                    inheritance laws and wealth protection
-                    strategies.
-                  </p>
+                  <p className="text-gray-600 mt-3 text-sm flex-1">
+  Learn more about estate planning,
+  inheritance laws and wealth protection
+  strategies.
+</p>
 
                   <button className="mt-5 text-[#C9A227] font-semibold">
                     Read More →

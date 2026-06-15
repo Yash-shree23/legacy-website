@@ -62,24 +62,24 @@ function LegalGuides() {
 
             {guides.map((guide, index) => (
               <div
-                key={index}
-                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition"
-              >
+  key={index}
+  className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition flex flex-col"
+>
                 <img
                   src={guide.image}
                   alt={guide.title}
                   className="w-full h-52 object-cover"
                 />
 
-                <div className="p-6">
+               <div className="p-6 flex flex-col flex-1">
 
                   <h3 className="text-xl font-bold text-[#0F172A]">
                     {guide.title}
                   </h3>
 
-                  <p className="mt-3 text-gray-600 text-sm">
-                    {guide.description}
-                  </p>
+                 <p className="mt-3 text-gray-600 text-sm flex-1">
+  {guide.description}
+</p>
 
                   <button className="mt-5 bg-[#C9A227] text-white px-5 py-2 rounded-lg hover:bg-yellow-700 transition">
                     Read Guide

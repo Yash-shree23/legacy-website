@@ -174,7 +174,7 @@ function Home() {
         </div>
 
         <h3 className="text-white text-2xl font-semibold mt-6">
-          Execute & Store
+          Execute & Register_Store
         </h3>
 
         <p className="text-gray-300 mt-4">
@@ -249,7 +249,7 @@ function Home() {
                 </button> */}
       <Link to={`/services/${service.slug}`}>
   <button className="mt-6 text-[#C9A227] font-semibold hover:translate-x-2 transition-all">
-    Learn More →
+    Know More →
   </button>
 </Link>
 
@@ -361,8 +361,8 @@ function Home() {
 
 </div>
               <p className="text-gray-600 mt-4">
-                Legacy helped us secure our family assets with
-                complete legal confidence.
+                "Legacy helped us secure our family assets with
+                complete legal confidence."
               </p>
             </div>
 
@@ -378,8 +378,8 @@ function Home() {
 
 </div>
               <p className="text-gray-600 mt-4">
-                Excellent support for Indian property succession
-                planning and documentation.
+                "Excellent support for Indian property succession
+                planning and documentation."
               </p>
             </div>
 
@@ -395,8 +395,8 @@ function Home() {
 
 </div>
               <p className="text-gray-600 mt-4">
-                Professional, transparent and highly trustworthy
-                legal process.
+                "Professional, transparent and highly trustworthy
+                legal process."
               </p>
             </div>
 

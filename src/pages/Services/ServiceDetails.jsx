@@ -28,34 +28,64 @@ function ServiceDetails() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      await axios.post(
-        "http://localhost:8080/api/service-enquiry",
-        {
-          ...formData,
-          service_name: service.title,
-        }
-      );
+  const fullName = formData.full_name.trim();
+  const email = formData.email.trim();
+  const phone = formData.phone.trim();
+  const message = formData.message.trim();
 
-      alert(
-        "Thank you for your enquiry. Our advisor will contact you shortly."
-      );
+  // Prevent blank spaces
+  if (!fullName || !message) {
+    alert("Name and Requirement cannot contain only blank spaces.");
+    return;
+  }
 
-      setFormData({
-        full_name: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong.");
-    }
-  };
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // Phone validation
+  const phoneRegex = /^[0-9]{10}$/;
+
+  if (!phoneRegex.test(phone)) {
+    alert("Phone number must contain exactly 10 digits.");
+    return;
+  }
+
+  try {
+    await axios.post(
+      "http://localhost:8080/api/service-enquiry",
+      {
+        full_name: fullName,
+        email,
+        phone,
+        message,
+        service_name: service.title,
+      }
+    );
+
+    alert(
+      "Thank you for your enquiry. Our advisor will contact you shortly."
+    );
+
+    setFormData({
+      full_name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
 
   if (!service) {
     return <h1>Service Not Found</h1>;
@@ -120,44 +150,57 @@ function ServiceDetails() {
               >
 
                 <input
-                  type="text"
-                  name="full_name"
-                  value={formData.full_name}
-                  onChange={handleChange}
-                  placeholder="Your Name"
-                  className="w-full border p-3 rounded-xl"
-                  required
-                />
+  type="text"
+  name="full_name"
+  value={formData.full_name}
+  onChange={handleChange}
+  placeholder="Your Name"
+  className="w-full border p-3 rounded-xl"
+  required
+  maxLength={50}
+  pattern="^[A-Za-z ]+$"
+  title="Only letters and spaces are allowed"
+/>
 
+              <input
+  type="email"
+  name="email"
+  value={formData.email}
+  onChange={handleChange}
+  placeholder="Email Address"
+  className="w-full border p-3 rounded-xl"
+  required
+  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+/>
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email Address"
-                  className="w-full border p-3 rounded-xl"
-                  required
-                />
+  type="tel"
+  name="phone"
+  value={formData.phone}
+  onChange={(e) => {
+    const value = e.target.value.replace(/\D/g, "");
 
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Phone Number"
-                  className="w-full border p-3 rounded-xl"
-                  required
-                />
-
+    setFormData({
+      ...formData,
+      phone: value,
+    });
+  }}
+  placeholder="Phone Number"
+  className="w-full border p-3 rounded-xl"
+  required
+  maxLength={10}
+  pattern="[0-9]{10}"
+  title="Enter a valid 10 digit phone number"
+/>
                 <textarea
-                  rows="4"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Requirement"
-                  className="w-full border p-3 rounded-xl"
-                  required
-                />
+  rows="4"
+  name="message"
+  value={formData.message}
+  onChange={handleChange}
+  placeholder="Requirement"
+  className="w-full border p-3 rounded-xl"
+  required
+  maxLength={1000}
+></textarea>
 
                 <button
                   type="submit"

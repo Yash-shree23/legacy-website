@@ -15,33 +15,74 @@ function ConsultationModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const { name, value } = e.target;
 
+  if (name === "phone") {
+    // Allow only numbers and max 10 digits
+    const phoneValue = value.replace(/\D/g, "").slice(0, 10);
+
+    setFormData({
+      ...formData,
+      [name]: phoneValue,
+    });
+    return;
+  }
+
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+};
   const handleSubmit = async (e) => {
   e.preventDefault();
+
+  // Name validation
+  if (!formData.name.trim()) {
+    alert("Name is required");
+    return;
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(formData.email.trim())) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  // Phone validation
+  const phoneRegex = /^[6-9]\d{9}$/;
+
+  if (!phoneRegex.test(formData.phone)) {
+    alert("Please enter a valid 10-digit mobile number");
+    return;
+  }
+
+  // Service validation
+  if (!formData.service.trim()) {
+    alert("Please select a service");
+    return;
+  }
 
   setLoading(true);
 
   try {
-
     await axios.post(
       "http://localhost:8080/api/consultation",
-      formData
+      {
+        ...formData,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
+      }
     );
 
     setSubmitted(true);
-
   } catch (error) {
-
     console.error(error);
-
     alert("Something went wrong.");
-
   } finally {
-
     setLoading(false);
-
   }
 };
 
@@ -97,15 +138,19 @@ function ConsultationModal({ isOpen, onClose }) {
                   <label className="block text-sm font-medium text-[#0F172A] mb-1">
                     Full Name <span className="text-[#C9A227]">*</span>
                   </label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Rajesh Sharma"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/20 transition"
-                  />
+                 <input
+  type="text"
+  name="name"
+  required
+  minLength={2}
+  pattern=".*\S.*"
+  title="Name cannot be empty or spaces only"
+  value={formData.name}
+  onChange={handleChange}
+  // placeholder="Rajesh Sharma"
+  className="..."
+   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/20 transition bg-white"
+/>
                 </div>
 
                 {/* Email + Phone row */}
@@ -114,29 +159,36 @@ function ConsultationModal({ isOpen, onClose }) {
                     <label className="block text-sm font-medium text-[#0F172A] mb-1">
                       Email <span className="text-[#C9A227]">*</span>
                     </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="you@email.com"
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/20 transition"
-                    />
+                   <input
+  type="email"
+  name="email"
+  required
+  pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+  title="Enter a valid email address"
+  value={formData.email}
+  onChange={handleChange}
+  placeholder="you@email.com"
+  className="..."
+   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/20 transition bg-white"
+/>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#0F172A] mb-1">
                       Phone <span className="text-[#C9A227]">*</span>
                     </label>
                     <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+91 98765 43210"
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/20 transition"
-                    />
+  type="tel"
+  name="phone"
+  required
+  value={formData.phone}
+  onChange={handleChange}
+  maxLength={10}
+  pattern="[6-9]{1}[0-9]{9}"
+  title="Enter a valid 10-digit mobile number"
+  placeholder="9876543210"
+  className="..."
+   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#0F172A] focus:outline-none focus:border-[#C9A227] focus:ring-2 focus:ring-[#C9A227]/20 transition bg-white"
+/>
                   </div>
                 </div>
 

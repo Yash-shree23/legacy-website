@@ -142,14 +142,12 @@ function Footer() {
                 </Link>
               </li>
 
-              <li>
-                <Link
-                  to="/services"
-                  className="text-[#C9A227]"
-                >
-                  View All →
-                </Link>
-              </li>
+              <Link
+  to="/nri"
+  className="text-[#C9A227] hover:underline"
+>
+  View All →
+</Link>
 
             </ul>
 

@@ -1,5 +1,5 @@
 // src/pages/NRI/NRI.jsx
-
+import { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import nri from "../../assets/nri.png";
@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa";
 
 function NRI() {
+  const [openFAQ, setOpenFAQ] = useState(null);
   return (
     <>
       <Navbar />
@@ -235,18 +236,19 @@ function NRI() {
     key={index}
     to={`/nri/${item.slug}`}
     className="
-      block
-      bg-white
-      rounded-3xl
-      p-8
-      shadow-lg
-      hover:-translate-y-2
-      hover:shadow-2xl
-      transition-all
-      duration-500
-      border-t-4
-      border-[#C9A227]
-    "
+  flex
+  flex-col
+  bg-white
+  rounded-3xl
+  p-8
+  shadow-lg
+  hover:-translate-y-2
+  hover:shadow-2xl
+  transition-all
+  duration-500
+  border-t-4
+  border-[#C9A227]
+"
   >
     <div className="text-5xl text-[#C9A227] mb-5">
       {item.icon}
@@ -255,14 +257,13 @@ function NRI() {
     <h3 className="font-bold text-xl text-[#0F172A]">
       {item.title}
     </h3>
+<p className="text-gray-600 mt-3 flex-1">
+  Dedicated legal support for NRIs.
+</p>
 
-    <p className="text-gray-600 mt-3">
-      Dedicated legal support for NRIs.
-    </p>
-
-    <div className="mt-5 text-[#C9A227] font-semibold">
-      Know More →
-    </div>
+    <div className="mt-auto pt-5 text-[#C9A227] font-semibold">
+  Know More →
+</div>
   </Link>
 ))}
           </div>
@@ -324,25 +325,55 @@ function NRI() {
           <div className="mt-12 space-y-5">
 
             {[
-              "Can NRIs create Indian wills?",
-              "Is FEMA compliance included?",
-              "Can registration be done remotely?",
-              "Do you support UAE and USA residents?",
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl p-6 shadow"
-              >
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold text-[#0F172A]">
-                    {item}
-                  </h3>
+  {
+    question: "Can NRIs create Indian wills?",
+    answer:
+      "Yes. NRIs can legally create wills for their assets located in India.",
+  },
+  {
+    question: "Is FEMA compliance included?",
+    answer:
+      "Yes. We review your estate plan to ensure FEMA compliance wherever applicable.",
+  },
+  {
+    question: "Can registration be done remotely?",
+    answer:
+      "Many processes can be handled remotely, depending on your location and requirements.",
+  },
+  {
+    question: "Do you support UAE and USA residents?",
+    answer:
+      "Yes. We assist NRIs residing in the UAE, USA, UK, Canada, Australia and many other countries.",
+  },
+].map((faq, index) => (
+  <div
+    key={index}
+    className="bg-white rounded-2xl shadow overflow-hidden"
+  >
+    <button
+      onClick={() =>
+        setOpenFAQ(openFAQ === index ? null : index)
+      }
+      className="w-full flex justify-between items-center p-6 text-left"
+    >
+      <h3 className="font-semibold text-[#0F172A]">
+        {faq.question}
+      </h3>
 
-                  <FaChevronDown />
-                </div>
-              </div>
-            ))}
+      <FaChevronDown
+        className={`transition-transform duration-300 ${
+          openFAQ === index ? "rotate-180" : ""
+        }`}
+      />
+    </button>
 
+    {openFAQ === index && (
+      <div className="px-6 pb-6 text-gray-600">
+        {faq.answer}
+      </div>
+    )}
+  </div>
+))}
           </div>
 
         </div>

@@ -1,6 +1,7 @@
 
 
 import { Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import UserLayout from "./Layout/UserLayout";
 import Home from "./pages/Home/Home";
 import ServiceDetails from "./pages/Services/ServiceDetails";
@@ -25,6 +26,8 @@ import Partners from "./Admin/src/pages/Partners";
 
 function App() {
   return (
+    <>
+     <ScrollToTop />
     <Routes>
       {/* USER ROUTES */}
       <Route element={<UserLayout />}>
@@ -59,6 +62,7 @@ function App() {
         <Route path="/admin/partners" element={<Partners />} />
       </Route>
     </Routes>
+    </>
   );
 }
 

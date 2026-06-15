@@ -11,7 +11,7 @@ function Hero() {
         <div>
 
           <span className="uppercase tracking-[5px] text-[#C9A227] font-semibold">
-            India's Trusted Estate Planning Platform
+            India's most trusted estate planning platform — for Indians at home and abroad.
           </span>
 
           <h1 className="text-[#0F172A] text-6xl lg:text-7xl font-bold leading-tight mt-6">
@@ -51,14 +51,14 @@ function Hero() {
     to="/services/will-drafting"
     className="bg-[#C9A227] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#b08d1d] transition"
   >
-    Start Your Will →
+    Start My Will →
   </Link>
 
   <Link
   to="/contact"
   className="bg-[#C9A227] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#b08d1d] transition"
 >
-  Contact Us
+  Talk to Lawyer
 </Link>
 
 </div>

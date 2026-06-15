@@ -55,8 +55,8 @@ function Navbar() {
           <Link to="/" className="flex items-center">
   <img
     src={logo}
-    alt="Legacy Logo"
-    className="h-16 w-auto"
+    alt="Legacy Logo"xmap
+    className="h-12 w-auto"
   />
 </Link>
 
@@ -232,7 +232,7 @@ function Navbar() {
             onClick={() => setIsModalOpen(true)}
             className="bg-[#C9A227] text-white px-6 py-3 rounded-xl hover:bg-yellow-700 transition"
           >
-            Book Consultation
+            Book Free Consultation
           </button>
 
         </div>

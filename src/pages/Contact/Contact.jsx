@@ -19,30 +19,65 @@ function Contact() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      await axios.post(
-        "http://localhost:8080/api/contact",
-        formData
-      );
+  const fullName = formData.full_name.trim();
+  const subject = formData.subject.trim();
+  const message = formData.message.trim();
+  const phone = formData.phone.trim();
+  const email = formData.email.trim();
 
-      alert(
-        "Thank you for contacting Legacy. Our advisor will contact you shortly."
-      );
+  // Prevent only spaces
+  if (!fullName || !subject || !message) {
+    alert("Fields cannot contain only blank spaces.");
+    return;
+  }
 
-      setFormData({
-        full_name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong.");
-    }
-  };
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // Phone validation (10 digits only)
+  const phoneRegex = /^[0-9]{10}$/;
+
+  if (!phoneRegex.test(phone)) {
+    alert("Phone number must contain exactly 10 digits.");
+    return;
+  }
+
+  try {
+    await axios.post(
+      "http://localhost:8080/api/contact",
+      {
+        ...formData,
+        full_name: fullName,
+        subject,
+        message,
+        email,
+        phone,
+      }
+    );
+
+    alert(
+      "Thank you for contacting Legacy. Our advisor will contact you shortly."
+    );
+
+    setFormData({
+      full_name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
 
   return (
     <>
@@ -89,7 +124,7 @@ function Contact() {
       {/* Contact Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="grid lg:grid-cols-3 gap-10">
+         <div className="grid lg:grid-cols-3 gap-10 items-stretch">
 
             {/* Contact Form */}
             <div className="lg:col-span-2 bg-white rounded-3xl shadow-lg border border-gray-100 p-8">
@@ -109,8 +144,11 @@ function Contact() {
                 <div className="grid md:grid-cols-2 gap-5">
 
                   <input
-                    type="text"
-                    name="full_name"
+  type="text"
+  name="full_name"
+  maxLength={50}
+  pattern="^[A-Za-z ]+$"
+  title="Only letters and spaces are allowed"
                     value={formData.full_name}
                     onChange={handleChange}
                     placeholder="Full Name"
@@ -119,50 +157,61 @@ function Contact() {
                   />
 
                   <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email Address"
-                    className="border border-gray-300 rounded-xl p-4"
-                    required
-                  />
+  type="email"
+  name="email"
+  value={formData.email}
+  onChange={handleChange}
+  placeholder="Email Address"
+  className="border border-gray-300 rounded-xl p-4"
+  required
+  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+/>
 
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-5">
 
+                 <input
+  type="tel"
+  name="phone"
+  value={formData.phone}
+  onChange={(e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setFormData({
+      ...formData,
+      phone: value,
+    });
+  }}
+  placeholder="Phone Number"
+  className="border border-gray-300 rounded-xl p-4"
+  required
+  maxLength={10}
+  pattern="[0-9]{10}"
+  title="Enter a valid 10 digit phone number"
+/>
                   <input
-                    type="text"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Phone Number"
-                    className="border border-gray-300 rounded-xl p-4"
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Subject"
-                    className="border border-gray-300 rounded-xl p-4"
-                    required
-                  />
+  type="text"
+  name="subject"
+  value={formData.subject}
+  onChange={handleChange}
+  placeholder="Subject"
+  className="border border-gray-300 rounded-xl p-4"
+  required
+  maxLength={100}
+/>
 
                 </div>
 
                 <textarea
-                  rows="6"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Your Message"
-                  className="w-full border border-gray-300 rounded-xl p-4"
-                  required
-                ></textarea>
+  rows="6"
+  name="message"
+  value={formData.message}
+  onChange={handleChange}
+  placeholder="Your Message"
+  className="w-full border border-gray-300 rounded-xl p-4"
+  required
+  maxLength={1000}
+></textarea>
 
                 <button
                   type="submit"
@@ -184,7 +233,7 @@ function Contact() {
             </div>
 
             {/* Contact Info */}
-            <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 h-fit">
+            <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 h-full">
 
               <h2 className="text-2xl font-bold text-[#0F172A] mb-4">
                 Contact Information
