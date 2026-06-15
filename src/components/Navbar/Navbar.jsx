@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import ConsultationModal from "../ConsultationModal/ConsultationModal";
+import logo from "../../assets/8.png";
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,11 +47,18 @@ function Navbar() {
         <div className="max-w-7xl mx-auto px-8 py-3 flex justify-between items-center">
 
           {/* Logo */}
-          <Link to="/">
+          {/* <Link to="/">
             <h1 className="text-3xl font-bold text-[#0F172A]">
               LEGACY
             </h1>
-          </Link>
+          </Link> */}
+          <Link to="/" className="flex items-center">
+  <img
+    src={logo}
+    alt="Legacy Logo"
+    className="h-16 w-auto"
+  />
+</Link>
 
           {/* Navigation Links */}
           <ul className="hidden md:flex gap-8 text-[#0F172A] font-medium items-center">
