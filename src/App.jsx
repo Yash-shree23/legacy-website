@@ -22,6 +22,7 @@ import Enquiries from "./Admin/src/pages/Enquiries";
 import Consultations from "./Admin/src/pages/Consultations";
 import Team from "./Admin/src/pages/Team";
 import Partners from "./Admin/src/pages/Partners";
+import ForgetPassword from "./Admin/src/pages/ForgetPassword";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
       {/* ADMIN ROUTES */}
 
       <Route path="/admin" element={<LoginPage />} />
+      <Route path="/admin/forget-password" element={<ForgetPassword />} />
 
 
       <Route element={<AdminLayout />}>

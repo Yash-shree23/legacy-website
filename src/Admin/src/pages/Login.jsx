@@ -197,7 +197,12 @@ function Login() {
             </div>
 
             <div className="forgot-password">
-              <a href="/forgot-password">Forgot Password?</a>
+              <span
+                style={{ cursor: "pointer", color: "blue" }}
+                onClick={() => navigate("/admin/forget-password")}
+              >
+                Forgot Password?
+              </span>            
             </div>
 
             {/* Show loading or Login text */}
