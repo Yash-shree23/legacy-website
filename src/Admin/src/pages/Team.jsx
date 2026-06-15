@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./team.css";
 
-const API = "http://localhost:8080/api/team";
+// const API = "http://localhost:8080/api/team";
+const API = "https://hpclsparesportal.in/legacy-backend/public/api/team";
 
 const Team = () => {
     const [members, setMembers] = useState([]);
@@ -67,64 +68,45 @@ const Team = () => {
     };
 
     const handleImageUpload = (e) => {
-        const file = e.target.files[0];
+  const file = e.target.files[0];
 
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-
-            setFormData({
-                ...formData,
-                image: imageUrl,
-            });
-        }
-    };
+  setFormData({
+    ...formData,
+    image: file,
+  });
+};
 
     // ── Add or Update member in database ──
    const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-        const response = await fetch(
-            editId ? `${API}/${editId}` : API,
-            {
-                method: editId ? "PUT" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            }
-        );
+  const data = new FormData();
 
-        const result = await response.json();
+  data.append("name", formData.name);
+  data.append("role", formData.role);
+  data.append("phone", formData.phone);
+  data.append("email", formData.email);
+  data.append("description", formData.description);
+  data.append("image", formData.image);
 
-        if (response.ok) {
-            alert(
-                editId
-                    ? "✅ Team member updated successfully"
-                    : "✅ Team member added successfully"
-            );
+  try {
 
-            setShowModal(false);
+    const response = await fetch(API, {
+      method: "POST",
+      body: data,
+    });
 
-            setFormData({
-                name: "",
-                role: "",
-                phone: "",
-                email: "",
-                description: "",
-                image: "",
-            });
+    const result = await response.json();
 
-            setEditId(null);
+    alert(result.message);
 
-            fetchMembers();
-        } else {
-            alert("❌ Operation failed");
-        }
-    } catch (err) {
-        console.error(err);
-        alert("❌ Server error");
-    }
+    setShowModal(false);
+
+    fetchMembers();
+
+  } catch (err) {
+    console.error(err);
+  }
 };
     const filteredMembers = members.filter((member) =>
         member.name.toLowerCase().includes(search.toLowerCase())
@@ -176,10 +158,14 @@ const Team = () => {
                 {filteredMembers.map((member) => (
                     <div className="member-card" key={member.id}>
                         <div className="card-top">
-                            <img
-                                src={member.image || "https://i.pravatar.cc/300?img=1"}
-                                alt={member.name}
-                            />
+<img
+  src={
+    member.image
+      ? `https://hpclsparesportal.in/legacy-backend/public/uploads/team/${member.image}`
+      : "https://i.pravatar.cc/300?img=1"
+  }
+  alt={member.name}
+/>
                         </div>
 
                         <div className="card-content">

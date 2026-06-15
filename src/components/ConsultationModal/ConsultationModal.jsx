@@ -68,13 +68,9 @@ function ConsultationModal({ isOpen, onClose }) {
 
   try {
     await axios.post(
-      "http://localhost:8080/api/consultation",
-      {
-        ...formData,
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        message: formData.message.trim(),
-      }
+      // "http://localhost:8080/api/consultation",
+      "https://hpclsparesportal.in/legacy-backend/public/api/consultation",
+      formData
     );
 
     setSubmitted(true);

@@ -24,7 +24,9 @@ function ConsultationsPage() {
   const fetchConsultations = async () => {
     try {
       const res = await fetch(
-        "http://localhost:8080/api/consultations/all"
+        // "http://localhost:8080/api/consultations/all"
+        "https://hpclsparesportal.in/legacy-backend/public/api/consultations/all"
+
       );
 
       const data = await res.json();
@@ -38,7 +40,7 @@ function ConsultationsPage() {
   const fetchTeamMembers = async () => {
     try {
       const res = await fetch(
-        "http://localhost:8080/api/team"
+        "https://hpclsparesportal.in/legacy-backend/public/api/team"
       );
 
       const data = await res.json();
@@ -55,7 +57,7 @@ function ConsultationsPage() {
   ) => {
     try {
       await fetch(
-        "http://localhost:8080/api/enquiry/assign",
+        "https://hpclsparesportal.in/legacy-backend/public/api/enquiry/assign",
         {
           method: "POST",
           headers: {
@@ -92,7 +94,7 @@ function ConsultationsPage() {
   ) => {
     try {
       await fetch(
-        "http://localhost:8080/api/enquiry/status",
+        "https://hpclsparesportal.in/legacy-backend/public/api/enquiry/status",
         {
           method: "POST",
           headers: {

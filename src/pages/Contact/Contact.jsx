@@ -49,18 +49,12 @@ function Contact() {
     return;
   }
 
-  try {
-    await axios.post(
-      "http://localhost:8080/api/contact",
-      {
-        ...formData,
-        full_name: fullName,
-        subject,
-        message,
-        email,
-        phone,
-      }
-    );
+    try {
+      await axios.post(
+        // "http://localhost:8080/api/contact",
+         "https://hpclsparesportal.in/legacy-backend/public/api/contact",
+        formData
+      );
 
     alert(
       "Thank you for contacting Legacy. Our advisor will contact you shortly."

@@ -139,7 +139,7 @@ tbody td { padding: 10px; color: #333; vertical-align: middle; }
 /* Scrollable table wrapper for mobile */
 .table-wrapper {
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: visible;
 }
 
 /* Name cell */
@@ -234,16 +234,19 @@ tbody td { padding: 10px; color: #333; vertical-align: middle; }
 .assign-dropdown {
   position: absolute;
   top: calc(100% + 6px);
-  left: 0;
+  right: 0;
+
+  width: 220px;
+  max-height: 250px;
+  overflow-y: auto;
+
   background: #fff;
   border: 1px solid #e5e2d9;
   border-radius: 12px;
-  width: 220px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  z-index: 9999;
-  overflow: hidden;
-}
 
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  z-index: 9999;
+}
 .dropdown-label {
   font-size: 10px;
   font-weight: 600;

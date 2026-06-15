@@ -58,17 +58,15 @@ function ServiceDetails() {
     return;
   }
 
-  try {
-    await axios.post(
-      "http://localhost:8080/api/service-enquiry",
-      {
-        full_name: fullName,
-        email,
-        phone,
-        message,
-        service_name: service.title,
-      }
-    );
+    try {
+      await axios.post(
+        //  "http://localhost:8080/api/service-enquiry",
+        "https://hpclsparesportal.in/legacy-backend/public/api/service-enquiry",
+        {
+          ...formData,
+          service_name: service.title,
+        }
+      );
 
     alert(
       "Thank you for your enquiry. Our advisor will contact you shortly."
